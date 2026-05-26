@@ -1,0 +1,20 @@
+import { type NextRequest, NextResponse } from "next/server";
+
+const ADMIN_COOKIE = "aa_admin";
+
+export function middleware(request: NextRequest) {
+  const { pathname } = request.nextUrl;
+
+  if (pathname.startsWith("/admin") && !pathname.startsWith("/admin/login")) {
+    const token = request.cookies.get(ADMIN_COOKIE)?.value;
+    if (token !== process.env.ADMIN_SECRET) {
+      return NextResponse.redirect(new URL("/admin/login", request.url));
+    }
+  }
+
+  return NextResponse.next();
+}
+
+export const config = {
+  matcher: ["/admin/:path*"],
+};
