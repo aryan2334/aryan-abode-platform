@@ -209,12 +209,12 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
   const variant = list[Math.min(varIdx, list.length - 1)];
 
   return (
-    <div className="h-full min-h-screen flex flex-col lg:flex-row">
+    <div className="h-full min-h-0 lg:min-h-screen flex flex-col lg:flex-row">
 
       {/* ── LEFT: Configurator ── */}
       <div className="w-full lg:w-[272px] shrink-0 flex flex-col overflow-y-auto border-r border-white/15" style={{ background: "linear-gradient(180deg, #111126 0%, #0d0d1e 50%, #0a0a18 100%)" }}>
 
-        <div className="px-5 pt-7 pb-5 border-b border-white/10">
+        <div className="px-4 sm:px-5 pt-5 sm:pt-7 pb-4 sm:pb-5 border-b border-white/10">
           <p className="text-[#f0c84a] text-[10px] tracking-[0.35em] uppercase mb-1">Configurator</p>
           <h2 className="text-white text-lg font-semibold tracking-wide">Choose Your Residence</h2>
         </div>
@@ -288,14 +288,14 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
       <div className="flex-1 flex flex-col min-h-0" style={{ background: "linear-gradient(135deg, #09090e 0%, #0a0a12 100%)" }}>
 
         {/* Top bar */}
-        <div className="flex items-center gap-3 px-6 py-3.5 border-b border-white/15 shrink-0" style={{ background: "rgba(16,16,30,0.95)" }}>
-          <Home size={13} className="text-[#d4aa50]" />
-          <span className="text-white text-sm font-light">
-            {group} · {variant.sqft} sq.ft · {variant.facing} Facing
+        <div className="flex flex-wrap items-center gap-x-2 gap-y-2 px-4 sm:px-6 py-3 sm:py-3.5 border-b border-white/15 shrink-0" style={{ background: "rgba(16,16,30,0.95)" }}>
+          <Home size={13} className="text-[#d4aa50] shrink-0" />
+          <span className="text-white text-xs sm:text-sm font-light min-w-0">
+            {group} · {variant.sqft} sq.ft · {variant.facing}
           </span>
-          <span className="text-[#8898c0] text-xs">Flat {variant.flatNos}</span>
-          <div className="ml-auto px-3 py-1 rounded-full" style={{ background: "rgba(212,170,80,0.1)", border: "1px solid rgba(212,170,80,0.25)" }}>
-            <span className="text-[#d4aa50] text-[10px] font-semibold tracking-widest uppercase">RERA Certified</span>
+          <span className="text-[#8898c0] text-[10px] sm:text-xs shrink-0">Flat {variant.flatNos}</span>
+          <div className="sm:ml-auto px-2.5 sm:px-3 py-1 rounded-full shrink-0" style={{ background: "rgba(212,170,80,0.1)", border: "1px solid rgba(212,170,80,0.25)" }}>
+            <span className="text-[#d4aa50] text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase">RERA</span>
           </div>
         </div>
 
@@ -323,13 +323,13 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
         </div>
 
         {/* Bottom bar */}
-        <div className="flex items-center gap-3 px-6 py-3 border-t border-white/15 shrink-0" style={{ background: "rgba(16,16,30,0.95)" }}>
-          <span className="text-[#7888a8] text-[10px]">
-            G+4 · 20 flats/floor · 100 total · Builder share: 60 · Available for sale: 54
+        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 border-t border-white/15 shrink-0" style={{ background: "rgba(16,16,30,0.95)" }}>
+          <span className="text-[#7888a8] text-[10px] leading-relaxed">
+            G+4 · 20 flats/floor · 54 units for sale
           </span>
-          <div className="ml-auto flex items-center gap-2">
+          <div className="sm:ml-auto flex items-center gap-2 shrink-0">
             <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 text-[10px] font-medium">54 units available</span>
+            <span className="text-emerald-400 text-[10px] font-medium">54 available</span>
           </div>
         </div>
       </div>

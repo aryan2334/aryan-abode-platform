@@ -67,7 +67,7 @@ export function BookingPanel() {
 
   if (step === "done") {
     return (
-      <div className="h-full min-h-screen flex items-center justify-center p-8">
+      <div className="h-full min-h-0 lg:min-h-screen flex items-center justify-center p-4 sm:p-8">
         <motion.div
           className="max-w-md w-full text-center"
           initial={{ opacity: 0, scale: 0.95 }}
@@ -104,12 +104,12 @@ export function BookingPanel() {
   }
 
   return (
-    <div className="h-full min-h-screen grid lg:grid-cols-[1fr_380px]">
+    <div className="h-full min-h-0 lg:min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_380px]">
       {/* ── Left: Calendar + Slots ── */}
-      <div className="flex flex-col p-8 border-r border-white/12 overflow-y-auto" style={{ background: "rgba(10,10,24,0.6)" }}>
+      <div className="flex flex-col p-4 sm:p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-white/12 overflow-y-auto" style={{ background: "rgba(10,10,24,0.6)" }}>
         <div className="mb-8">
           <p className="text-[#f0c84a] text-[10px] tracking-[0.35em] uppercase mb-1">Schedule</p>
-          <h2 className="text-white text-2xl font-semibold tracking-tight">Book a Site Visit</h2>
+          <h2 className="text-white text-xl sm:text-2xl font-semibold tracking-tight">Book a Site Visit</h2>
         </div>
 
         {/* Experience selector */}
@@ -222,7 +222,7 @@ export function BookingPanel() {
       </div>
 
       {/* ── Right: Form ── */}
-      <div className="flex flex-col p-7 overflow-y-auto" style={{ background: "rgba(12,12,26,0.5)" }}>
+      <div className="flex flex-col p-4 sm:p-6 lg:p-7 overflow-y-auto" style={{ background: "rgba(12,12,26,0.5)" }}>
         <div className="mb-6">
           <p className="text-[#8898c0] text-[10px] tracking-[0.3em] uppercase mb-3">Your Details</p>
           <div className="space-y-4">

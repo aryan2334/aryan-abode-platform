@@ -77,10 +77,10 @@ export function LocationPanel() {
   const projX = 248, projY = 283;
 
   return (
-    <div className="h-full min-h-screen flex flex-col lg:flex-row bg-[#07070e]">
+    <div className="h-full min-h-0 lg:min-h-screen flex flex-col lg:flex-row bg-[#07070e]">
 
       {/* ══════════════════ MAP ══════════════════ */}
-      <div className="flex-1 relative overflow-hidden">
+      <div className="flex-1 relative overflow-hidden min-h-[240px] sm:min-h-[300px] lg:min-h-0">
 
         {/* Fine grid */}
         <div className="absolute inset-0 pointer-events-none" style={{
@@ -295,7 +295,7 @@ export function LocationPanel() {
       <div className="w-full lg:w-[336px] border-t lg:border-t-0 lg:border-l border-white/[0.07] flex flex-col bg-[#09091a]">
 
         {/* Header */}
-        <div className="px-6 pt-6 pb-4 border-b border-white/[0.07]">
+        <div className="px-4 sm:px-6 pt-5 sm:pt-6 pb-4 border-b border-white/[0.07]">
           <p className="text-[#d4aa50] text-[9.5px] tracking-[0.4em] uppercase mb-1.5">Growth Intelligence</p>
           <h2 className="text-white text-[19px] font-light tracking-wide leading-tight">Location Advantage</h2>
           <p className="text-[#505070] text-[10.5px] mt-1.5">₹50,000 Cr+ infrastructure corridor</p>
@@ -319,7 +319,7 @@ export function LocationPanel() {
                   style={{ color: `${activeLm.color}cc` }}>{activeLm.sub}</p>
               </div>
             </div>
-            <div className="grid grid-cols-3 gap-2 mb-3.5">
+            <div className="grid grid-cols-3 gap-1.5 sm:gap-2 mb-3.5">
               {[
                 { label: "Travel",   value: activeLm.time },
                 { label: "Distance", value: activeLm.km },

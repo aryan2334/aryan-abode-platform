@@ -7,8 +7,6 @@ import {
   Building2,
   MapPin,
   CalendarDays,
-  Menu,
-  X,
   ChevronRight,
 } from "lucide-react";
 import { DiscoverPanel } from "./panels/DiscoverPanel";
@@ -30,9 +28,7 @@ const navItems = [
 
 export function DashboardShell() {
   const [active, setActive] = useState<PanelId>("discover");
-  const [mobileOpen, setMobileOpen] = useState(false);
-
-  const navigate = (id: PanelId) => { setActive(id); setMobileOpen(false); };
+  const navigate = (id: PanelId) => setActive(id);
 
   const panels: Record<PanelId, React.ReactNode> = {
     discover: <DiscoverPanel onNavigate={navigate} />,
@@ -42,7 +38,7 @@ export function DashboardShell() {
   };
 
   return (
-    <div className="flex h-screen w-screen overflow-hidden text-[#f4f4f8]" style={{ background: "#04040e" }}>
+    <div className="flex h-[100dvh] w-full max-w-[100vw] overflow-hidden text-[#f4f4f8]" style={{ background: "#04040e" }}>
       {/* ── Desktop Sidebar ── */}
       <motion.aside
         className="hidden lg:flex flex-col w-[220px] shrink-0 border-r border-white/15 relative z-20"
@@ -132,53 +128,24 @@ export function DashboardShell() {
       {/* ── Main Panel ── */}
       <div className="flex-1 flex flex-col min-w-0 relative">
         {/* Mobile topbar */}
-        <div className="lg:hidden flex items-center justify-between px-5 py-4 border-b border-white/10 bg-[#0d0d1a] z-20 relative">
-          <div className="flex items-center gap-3">
-            <div className="w-7 h-7 rounded-full flex items-center justify-center" style={{ background: "rgba(212,170,80,0.15)", border: "1px solid rgba(212,170,80,0.4)" }}>
+        <div className="lg:hidden flex items-center justify-between px-4 py-3 border-b border-white/10 bg-[#0d0d1a] z-20 relative shrink-0">
+          <div className="flex items-center gap-2.5 min-w-0">
+            <div className="w-7 h-7 rounded-full flex items-center justify-center shrink-0" style={{ background: "rgba(212,170,80,0.15)", border: "1px solid rgba(212,170,80,0.4)" }}>
               <span className="text-[#d4aa50] text-[9px] font-bold">AA</span>
             </div>
-            <span className="text-white text-sm font-medium tracking-wider">Aryan Abode</span>
+            <div className="min-w-0">
+              <span className="text-white text-sm font-medium tracking-wider block truncate">Aryan Abode</span>
+              <span className="text-[#7888a8] text-[10px] block truncate">Premium · G+4 · 54 Units</span>
+            </div>
           </div>
-          <button
-            onClick={() => setMobileOpen(!mobileOpen)}
-            className="text-[#b0b0c8] hover:text-white"
-          >
-            {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-          </button>
         </div>
-
-        {/* Mobile menu */}
-        <AnimatePresence>
-          {mobileOpen && (
-            <motion.div
-              className="lg:hidden absolute inset-x-0 top-[57px] z-50 bg-[#0d0d1a] border-b border-white/10"
-              initial={{ opacity: 0, y: -10 }}
-              animate={{ opacity: 1, y: 0 }}
-              exit={{ opacity: 0, y: -10 }}
-              transition={{ duration: 0.2 }}
-            >
-              {navItems.map((item) => (
-                <button
-                  key={item.id}
-                  onClick={() => { setActive(item.id as PanelId); setMobileOpen(false); }}
-                  className={`w-full flex items-center gap-4 px-6 py-4 border-b border-white/[0.04] ${
-                    active === item.id ? "text-[#d4aa50]" : "text-[#9090b8]"
-                  }`}
-                >
-                  <item.icon size={16} />
-                  <span className="text-sm font-light">{item.label}</span>
-                </button>
-              ))}
-            </motion.div>
-          )}
-        </AnimatePresence>
 
         {/* Panel content */}
         <div className="flex-1 overflow-hidden relative">
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
-              className="absolute inset-0 overflow-y-auto overflow-x-hidden"
+              className="absolute inset-0 overflow-y-auto overflow-x-hidden overscroll-contain [-webkit-overflow-scrolling:touch]"
               initial={{ opacity: 0, scale: 0.99 }}
               animate={{ opacity: 1, scale: 1 }}
               exit={{ opacity: 0, scale: 1.01 }}
@@ -190,20 +157,23 @@ export function DashboardShell() {
         </div>
 
         {/* Mobile bottom nav */}
-        <div className="lg:hidden flex items-center border-t border-white/10 bg-[#0d0d1a]">
+        <nav
+          className="lg:hidden flex items-stretch border-t border-white/10 bg-[#0d0d1a] shrink-0 pb-[env(safe-area-inset-bottom)]"
+          aria-label="Main navigation"
+        >
           {navItems.map((item) => (
             <button
               key={item.id}
               onClick={() => setActive(item.id as PanelId)}
-              className={`flex-1 flex flex-col items-center gap-1 py-3 transition-colors ${
+              className={`flex-1 flex flex-col items-center justify-center gap-0.5 min-h-[52px] py-2 px-1 transition-colors ${
                 active === item.id ? "text-[#f0c84a]" : "text-[#7888a8]"
               }`}
             >
-              <item.icon size={18} />
-              <span className="text-[9px] tracking-wide">{item.label}</span>
+              <item.icon size={20} strokeWidth={active === item.id ? 2.25 : 1.75} />
+              <span className="text-[10px] tracking-wide leading-none">{item.label}</span>
             </button>
           ))}
-        </div>
+        </nav>
       </div>
     </div>
   );
