@@ -104,7 +104,7 @@ export function BookingPanel() {
   }
 
   return (
-    <div className="h-full min-h-0 lg:min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_380px]">
+    <div className="lg:h-full lg:min-h-screen grid grid-cols-1 lg:grid-cols-[1fr_380px]">
       {/* ── Left: Calendar + Slots ── */}
       <div className="flex flex-col p-4 sm:p-6 lg:p-8 border-b lg:border-b-0 lg:border-r border-white/12 overflow-y-auto" style={{ background: "rgba(10,10,24,0.6)" }}>
         <div className="mb-8">

@@ -145,11 +145,11 @@ export function DashboardShell() {
           <AnimatePresence mode="wait">
             <motion.div
               key={active}
-              className="absolute inset-0 overflow-y-auto overflow-x-hidden overscroll-contain [-webkit-overflow-scrolling:touch]"
-              initial={{ opacity: 0, scale: 0.99 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 1.01 }}
-              transition={{ duration: 0.4, ease }}
+              className="absolute inset-0 overflow-y-auto overflow-x-hidden overscroll-contain [-webkit-overflow-scrolling:touch] scroll-smooth"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease }}
             >
               {panels[active]}
             </motion.div>

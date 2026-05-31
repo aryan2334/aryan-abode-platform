@@ -27,7 +27,7 @@ const highlights = [
 
 export function DiscoverPanel({ onNavigate }: { onNavigate?: (id: PanelId) => void }) {
   return (
-    <div className="h-full min-h-0 lg:min-h-screen grid grid-cols-1 lg:grid-cols-2 relative overflow-x-hidden">
+    <div className="lg:h-full lg:min-h-screen grid grid-cols-1 lg:grid-cols-2 relative overflow-x-hidden">
       {/* Background mesh */}
       <div
         className="absolute inset-0 pointer-events-none"
@@ -143,7 +143,7 @@ export function DiscoverPanel({ onNavigate }: { onNavigate?: (id: PanelId) => vo
       </div>
 
       {/* ── Right: 3D Building ── */}
-      <div className="relative h-[36vh] min-h-[200px] max-h-[280px] sm:h-[42vh] sm:max-h-[340px] lg:h-full lg:min-h-0 lg:max-h-none shrink-0">
+      <div className="relative h-[40vh] min-h-[220px] max-h-[320px] sm:h-[44vh] sm:max-h-[380px] lg:h-full lg:min-h-0 lg:max-h-none shrink-0">
         {/* Ambient glow behind model */}
         <div
           className="absolute inset-0 pointer-events-none"

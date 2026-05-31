@@ -201,6 +201,35 @@ const variants: Record<GroupId, Variant[]> = {
   ],
 };
 
+function RoomDimensionsList({
+  variantId,
+  rooms,
+}: {
+  variantId: string;
+  rooms: { name: string; size: string }[];
+}) {
+  return (
+    <AnimatePresence mode="wait">
+      <motion.div
+        key={variantId}
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        exit={{ opacity: 0 }}
+        transition={{ duration: 0.15 }}
+      >
+        {rooms.map((r) => (
+          <div key={r.name} className="flex items-center justify-between py-1.5 border-b border-white/10 gap-2">
+            <span className="text-[11px] text-[#9090b8] shrink-0">{r.name}</span>
+            <span className="text-[11px] font-mono text-right" style={{ color: "rgba(240,200,74,0.90)" }}>
+              {r.size}
+            </span>
+          </div>
+        ))}
+      </motion.div>
+    </AnimatePresence>
+  );
+}
+
 export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id: PanelId) => void } = {}) {
   const [group, setGroup]   = useState<GroupId>("2.5BHK");
   const [varIdx, setVarIdx] = useState(0);
@@ -209,18 +238,84 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
   const variant = list[Math.min(varIdx, list.length - 1)];
 
   return (
-    <div className="h-full min-h-0 lg:min-h-screen flex flex-col lg:flex-row">
+    <div className="flex flex-col lg:flex-row lg:h-full lg:min-h-screen">
 
-      {/* ── LEFT: Configurator ── */}
-      <div className="w-full lg:w-[272px] shrink-0 flex flex-col overflow-y-auto border-r border-white/15" style={{ background: "linear-gradient(180deg, #111126 0%, #0d0d1e 50%, #0a0a18 100%)" }}>
-
-        <div className="px-4 sm:px-5 pt-5 sm:pt-7 pb-4 sm:pb-5 border-b border-white/10">
-          <p className="text-[#f0c84a] text-[10px] tracking-[0.35em] uppercase mb-1">Configurator</p>
-          <h2 className="text-white text-lg font-semibold tracking-wide">Choose Your Residence</h2>
+      {/* ── Floor plan (first on mobile, right on desktop) ── */}
+      <div
+        className="order-1 lg:order-2 flex flex-col w-full lg:flex-1 lg:min-h-0 shrink-0"
+        style={{ background: "linear-gradient(135deg, #09090e 0%, #0a0a12 100%)" }}
+      >
+        <div
+          className="flex flex-wrap items-center gap-x-2 gap-y-2 px-4 sm:px-6 py-3 border-b border-white/15 shrink-0"
+          style={{ background: "rgba(16,16,30,0.95)" }}
+        >
+          <Home size={13} className="text-[#d4aa50] shrink-0" />
+          <span className="text-white text-xs sm:text-sm font-light min-w-0">
+            {group} · {variant.sqft} sq.ft · {variant.facing}
+          </span>
+          <span className="text-[#8898c0] text-[10px] sm:text-xs shrink-0">Flat {variant.flatNos}</span>
+          <div
+            className="sm:ml-auto px-2.5 sm:px-3 py-1 rounded-full shrink-0"
+            style={{ background: "rgba(212,170,80,0.1)", border: "1px solid rgba(212,170,80,0.25)" }}
+          >
+            <span className="text-[#d4aa50] text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase">
+              RERA
+            </span>
+          </div>
         </div>
 
-        {/* Unit type */}
-        <div className="px-4 pt-5 pb-3">
+        <div className="relative w-full h-[min(58vh,480px)] min-h-[300px] lg:flex-1 lg:min-h-[320px] lg:h-auto bg-[#08080f]">
+          <AnimatePresence mode="wait">
+            <motion.div
+              key={variant.id}
+              className="absolute inset-0 flex items-center justify-center p-2 sm:p-4"
+              initial={{ opacity: 0 }}
+              animate={{ opacity: 1 }}
+              exit={{ opacity: 0 }}
+              transition={{ duration: 0.2, ease }}
+            >
+              <Image
+                src={variant.image}
+                alt={`${group} ${variant.sqft} sqft floor plan – ${variant.facing} facing`}
+                width={1200}
+                height={900}
+                className="max-h-full max-w-full w-auto h-auto object-contain"
+                sizes="(max-width: 1024px) 100vw, 60vw"
+                priority
+                unoptimized
+              />
+            </motion.div>
+          </AnimatePresence>
+          <p className="absolute bottom-2 left-0 right-0 text-center text-[#606080] text-[9px] tracking-wider pointer-events-none lg:hidden">
+            Pinch to zoom · scroll for options below
+          </p>
+        </div>
+
+        <div
+          className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 border-t border-white/15 shrink-0"
+          style={{ background: "rgba(16,16,30,0.95)" }}
+        >
+          <span className="text-[#7888a8] text-[10px] leading-relaxed">
+            G+4 · 20 flats/floor · 54 units for sale
+          </span>
+          <div className="sm:ml-auto flex items-center gap-2 shrink-0">
+            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
+            <span className="text-emerald-400 text-[10px] font-medium">54 available</span>
+          </div>
+        </div>
+      </div>
+
+      {/* ── Configurator (below plan on mobile, left on desktop) ── */}
+      <div
+        className="order-2 lg:order-1 w-full lg:w-[272px] shrink-0 flex flex-col border-t lg:border-t-0 lg:border-r border-white/15"
+        style={{ background: "linear-gradient(180deg, #111126 0%, #0d0d1e 50%, #0a0a18 100%)" }}
+      >
+        <div className="px-4 sm:px-5 pt-5 pb-4 border-b border-white/10">
+          <p className="text-[#f0c84a] text-[10px] tracking-[0.35em] uppercase mb-1">Configurator</p>
+          <h2 className="text-white text-base sm:text-lg font-semibold tracking-wide">Choose Your Residence</h2>
+        </div>
+
+        <div className="px-4 pt-4 pb-3">
           <p className="text-[#8898c0] text-[9px] tracking-[0.3em] uppercase mb-2.5">Flat Type</p>
           <div className="grid grid-cols-3 gap-1.5">
             {(["2BHK", "2.5BHK", "3BHK"] as GroupId[]).map((g) => (
@@ -231,13 +326,14 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
                 style={group === g
                   ? { background: "rgba(224,184,78,0.22)", border: "1px solid rgba(224,184,78,0.6)", color: "#f0c84a", boxShadow: "0 0 14px rgba(224,184,78,0.18)" }
                   : { background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)", color: "#8080b0" }}
-                whileHover={{ scale: 1.04 }} whileTap={{ scale: 0.97 }}
-              >{g}</motion.button>
+                whileTap={{ scale: 0.97 }}
+              >
+                {g}
+              </motion.button>
             ))}
           </div>
         </div>
 
-        {/* Variants */}
         <div className="px-4 pb-4">
           <p className="text-[#8898c0] text-[9px] tracking-[0.3em] uppercase mb-2">Configuration</p>
           <div className="space-y-1.5">
@@ -249,7 +345,7 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
                 style={varIdx === i
                   ? { background: "rgba(224,184,78,0.15)", border: "1px solid rgba(224,184,78,0.45)" }
                   : { background: "rgba(255,255,255,0.04)", border: "1px solid rgba(255,255,255,0.10)" }}
-                whileHover={{ x: 2 }}
+                whileTap={{ scale: 0.99 }}
               >
                 <div>
                   <p className={`text-xs font-medium ${varIdx === i ? "text-white" : "text-[#a0a0c8]"}`}>
@@ -263,74 +359,18 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
           </div>
         </div>
 
-        {/* Room dimensions */}
-        <div className="px-4 pb-3 flex-1">
+        <details className="px-4 pb-5 group lg:hidden" open>
+          <summary className="text-[#8898c0] text-[9px] tracking-[0.3em] uppercase cursor-pointer list-none flex items-center justify-between py-1">
+            Room Dimensions
+            <span className="text-[#606080] text-[10px] normal-case tracking-normal group-open:hidden">Show</span>
+            <span className="text-[#606080] text-[10px] normal-case tracking-normal hidden group-open:inline">Hide</span>
+          </summary>
+          <RoomDimensionsList variantId={variant.id} rooms={variant.rooms} />
+        </details>
+
+        <div className="hidden lg:block px-4 pb-3 flex-1 overflow-y-auto">
           <p className="text-[#8898c0] text-[9px] tracking-[0.3em] uppercase mb-2">Room Dimensions</p>
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={variant.id}
-              initial={{ opacity: 0 }} animate={{ opacity: 1 }} exit={{ opacity: 0 }}
-              transition={{ duration: 0.2 }}
-            >
-              {variant.rooms.map((r) => (
-                <div key={r.name} className="flex items-center justify-between py-1.5 border-b border-white/10">
-                  <span className="text-[11px] text-[#9090b8]">{r.name}</span>
-                  <span className="text-[11px] font-mono" style={{ color: "rgba(240,200,74,0.90)" }}>{r.size}</span>
-                </div>
-              ))}
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-      </div>
-
-      {/* ── RIGHT: Brochure floor plan image ── */}
-      <div className="flex-1 flex flex-col min-h-0" style={{ background: "linear-gradient(135deg, #09090e 0%, #0a0a12 100%)" }}>
-
-        {/* Top bar */}
-        <div className="flex flex-wrap items-center gap-x-2 gap-y-2 px-4 sm:px-6 py-3 sm:py-3.5 border-b border-white/15 shrink-0" style={{ background: "rgba(16,16,30,0.95)" }}>
-          <Home size={13} className="text-[#d4aa50] shrink-0" />
-          <span className="text-white text-xs sm:text-sm font-light min-w-0">
-            {group} · {variant.sqft} sq.ft · {variant.facing}
-          </span>
-          <span className="text-[#8898c0] text-[10px] sm:text-xs shrink-0">Flat {variant.flatNos}</span>
-          <div className="sm:ml-auto px-2.5 sm:px-3 py-1 rounded-full shrink-0" style={{ background: "rgba(212,170,80,0.1)", border: "1px solid rgba(212,170,80,0.25)" }}>
-            <span className="text-[#d4aa50] text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase">RERA</span>
-          </div>
-        </div>
-
-        {/* Floor plan image */}
-        <div className="flex-1 relative overflow-hidden">
-          <AnimatePresence mode="wait">
-            <motion.div
-              key={variant.id}
-              className="absolute inset-0"
-              initial={{ opacity: 0, scale: 0.98 }}
-              animate={{ opacity: 1, scale: 1 }}
-              exit={{ opacity: 0, scale: 0.98 }}
-              transition={{ duration: 0.35, ease }}
-            >
-              <Image
-                src={variant.image}
-                alt={`${group} ${variant.sqft} sqft floor plan – ${variant.facing} facing`}
-                fill
-                className="object-contain p-3"
-                priority
-                unoptimized
-              />
-            </motion.div>
-          </AnimatePresence>
-        </div>
-
-        {/* Bottom bar */}
-        <div className="flex flex-col sm:flex-row sm:items-center gap-2 sm:gap-3 px-4 sm:px-6 py-3 border-t border-white/15 shrink-0" style={{ background: "rgba(16,16,30,0.95)" }}>
-          <span className="text-[#7888a8] text-[10px] leading-relaxed">
-            G+4 · 20 flats/floor · 54 units for sale
-          </span>
-          <div className="sm:ml-auto flex items-center gap-2 shrink-0">
-            <span className="w-2 h-2 rounded-full bg-emerald-400 animate-pulse" />
-            <span className="text-emerald-400 text-[10px] font-medium">54 available</span>
-          </div>
+          <RoomDimensionsList variantId={variant.id} rooms={variant.rooms} />
         </div>
       </div>
     </div>

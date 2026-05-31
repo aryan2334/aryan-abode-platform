@@ -77,10 +77,10 @@ export function LocationPanel() {
   const projX = 248, projY = 283;
 
   return (
-    <div className="h-full min-h-0 lg:min-h-screen flex flex-col lg:flex-row bg-[#07070e]">
+    <div className="flex flex-col lg:flex-row lg:h-full lg:min-h-screen bg-[#07070e]">
 
       {/* ══════════════════ MAP ══════════════════ */}
-      <div className="flex-1 relative overflow-hidden min-h-[240px] sm:min-h-[300px] lg:min-h-0">
+      <div className="relative w-full shrink-0 h-[min(62vh,560px)] min-h-[380px] lg:flex-1 lg:min-h-0 lg:h-auto overflow-hidden">
 
         {/* Fine grid */}
         <div className="absolute inset-0 pointer-events-none" style={{
@@ -93,7 +93,12 @@ export function LocationPanel() {
           background: "radial-gradient(ellipse 80% 80% at 44% 50%, transparent 50%, rgba(7,7,14,0.75) 100%)",
         }} />
 
-        <svg className="absolute inset-0 w-full h-full" viewBox="0 0 500 560" preserveAspectRatio="xMidYMid meet">
+        <svg
+          className="absolute inset-0 w-full h-full touch-none"
+          viewBox="0 0 500 560"
+          preserveAspectRatio="xMidYMid meet"
+          aria-label="Growth corridor map"
+        >
           <defs>
             <linearGradient id="seaFill" x1="0%" y1="0%" x2="100%" y2="0%">
               <stop offset="0%" stopColor="#071420" stopOpacity="0" />
@@ -292,7 +297,7 @@ export function LocationPanel() {
       </div>
 
       {/* ══════════════════ SIDEBAR ══════════════════ */}
-      <div className="w-full lg:w-[336px] border-t lg:border-t-0 lg:border-l border-white/[0.07] flex flex-col bg-[#09091a]">
+      <div className="w-full lg:w-[336px] shrink-0 border-t lg:border-t-0 lg:border-l border-white/[0.07] flex flex-col bg-[#09091a]">
 
         {/* Header */}
         <div className="px-4 sm:px-6 pt-5 sm:pt-6 pb-4 border-b border-white/[0.07]">
