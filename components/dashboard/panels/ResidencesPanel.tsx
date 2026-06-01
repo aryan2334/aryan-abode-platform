@@ -5,6 +5,7 @@ import { motion, AnimatePresence } from "framer-motion";
 import Image from "next/image";
 import { Check, Home } from "lucide-react";
 import type { PanelId } from "@/components/dashboard/DashboardShell";
+import { RERA_APPROVAL_LABEL, RERA_APPROVAL_NUMBER } from "@/lib/rera";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -273,11 +274,14 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
           </span>
           <span className="text-[#8898c0] text-[10px] sm:text-xs shrink-0">Flat {variant.flatNos}</span>
           <div
-            className="sm:ml-auto px-2.5 sm:px-3 py-1 rounded-full shrink-0"
+            className="sm:ml-auto px-2.5 sm:px-3 py-1 rounded-lg sm:rounded-full shrink-0 text-right"
             style={{ background: "rgba(212,170,80,0.1)", border: "1px solid rgba(212,170,80,0.25)" }}
           >
-            <span className="text-[#d4aa50] text-[9px] sm:text-[10px] font-semibold tracking-widest uppercase">
-              RERA
+            <span className="text-[#d4aa50] text-[9px] sm:text-[10px] font-semibold tracking-wider uppercase block leading-tight">
+              {RERA_APPROVAL_LABEL}
+            </span>
+            <span className="text-[#c9a84c] text-[8px] font-mono block leading-none mt-0.5">
+              {RERA_APPROVAL_NUMBER}
             </span>
           </div>
         </div>

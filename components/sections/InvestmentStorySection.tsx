@@ -49,8 +49,8 @@ const investmentStats = [
   {
     icon: Award,
     value: "RERA",
-    label: "Fully Certified",
-    detail: "AP RERA Reg. No. AP/01/2024/XXXXX",
+    label: "Approved",
+    detail: "Reg. No. P03270176507",
   },
   {
     icon: MapPin,
