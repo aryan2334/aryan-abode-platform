@@ -4,7 +4,7 @@ import dynamic from "next/dynamic";
 import { motion } from "framer-motion";
 import { ArrowRight, Sparkles, Plane, Server, Waves, MapPin } from "lucide-react";
 import type { PanelId } from "@/components/dashboard/DashboardShell";
-import { RERA_APPROVAL_LABEL, RERA_APPROVAL_NUMBER } from "@/lib/rera";
+import { ReraBadge } from "@/components/common/ReraBadge";
 
 const ease = [0.22, 1, 0.36, 1] as [number, number, number, number];
 
@@ -166,18 +166,8 @@ export function DiscoverPanel({ onNavigate }: { onNavigate?: (id: PanelId) => vo
         </div>
 
         {/* RERA badge */}
-        <div className="absolute top-3 right-3 sm:top-6 sm:right-6 z-10 pointer-events-none max-w-[min(100%-1.5rem,200px)] sm:max-w-none">
-          <div
-            className="px-3 py-1.5 rounded-xl sm:rounded-full text-center sm:text-right"
-            style={{ border: "1px solid rgba(240,200,64,0.50)", background: "rgba(240,200,64,0.16)", boxShadow: "0 0 12px rgba(240,200,64,0.15)" }}
-          >
-            <span className="text-[#f0c84a] text-[9px] sm:text-[10px] font-bold tracking-[0.2em] sm:tracking-[0.25em] uppercase block leading-tight">
-              {RERA_APPROVAL_LABEL}
-            </span>
-            <span className="text-[#e8c040] text-[8px] sm:text-[9px] font-mono tracking-wide block mt-0.5 leading-none">
-              {RERA_APPROVAL_NUMBER}
-            </span>
-          </div>
+        <div className="absolute inset-x-0 top-3 sm:inset-x-auto sm:right-6 sm:top-6 z-10 flex justify-center sm:justify-end px-3 sm:px-0 pointer-events-none">
+          <ReraBadge elevated />
         </div>
 
         <BuildingScene />
