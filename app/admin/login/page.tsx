@@ -63,7 +63,7 @@ export default function AdminLogin() {
 
         {/* Card */}
         <div
-          className="rounded-2xl p-8"
+          className="rounded-2xl p-5 sm:p-8"
           style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.12)" }}
         >
           <div className="flex items-center gap-2 mb-6">

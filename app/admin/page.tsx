@@ -115,8 +115,8 @@ export default function AdminLeads() {
         className="border-b border-white/10 sticky top-0 z-30 backdrop-blur-xl"
         style={{ background: "rgba(8,8,20,0.90)" }}
       >
-        <div className="max-w-7xl mx-auto px-8 py-4 flex items-center justify-between">
-          <div className="flex items-center gap-4">
+        <div className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-3 sm:py-4 flex flex-col gap-3 sm:flex-row sm:items-center sm:justify-between">
+          <div className="flex items-center gap-3 sm:gap-4 min-w-0">
             <div
               className="w-9 h-9 rounded-full flex items-center justify-center shrink-0"
               style={{
@@ -133,18 +133,17 @@ export default function AdminLeads() {
             </div>
           </div>
 
-          <div className="flex items-center gap-3">
+          <div className="flex flex-wrap items-center gap-2 sm:gap-3 w-full sm:w-auto">
             {!loading && (
-              <span className="text-[#6878a8] text-xs hidden sm:block">
+              <span className="text-[#6878a8] text-[10px] sm:text-xs w-full sm:w-auto sm:mr-auto order-first sm:order-none">
                 Refreshed {lastRefresh.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
               </span>
             )}
             <motion.button
               onClick={fetchLeads}
               disabled={loading}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium transition-all"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs font-medium transition-all"
               style={{ background: "rgba(255,255,255,0.06)", border: "1px solid rgba(255,255,255,0.12)" }}
-              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
               <RefreshCw size={13} className={loading ? "animate-spin" : ""} />
@@ -153,50 +152,50 @@ export default function AdminLeads() {
             <motion.button
               onClick={() => exportCSV(leads)}
               disabled={leads.length === 0}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-bold transition-all disabled:opacity-40"
+              className="flex-1 sm:flex-none flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs font-bold transition-all disabled:opacity-40"
               style={{
                 background: "linear-gradient(135deg, #e0b84e, #f5d060)",
                 color: "#050508",
                 boxShadow: "0 2px 14px rgba(224,184,78,0.35)",
               }}
-              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
             >
               <Download size={13} />
-              Export CSV
+              <span className="sm:hidden">CSV</span>
+              <span className="hidden sm:inline">Export CSV</span>
             </motion.button>
             <motion.button
               onClick={handleLogout}
-              className="flex items-center gap-2 px-4 py-2 rounded-xl text-xs font-medium transition-all"
+              className="flex items-center justify-center gap-2 px-3 sm:px-4 py-2.5 rounded-xl text-xs font-medium transition-all"
               style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}
-              whileHover={{ scale: 1.04 }}
               whileTap={{ scale: 0.97 }}
+              aria-label="Logout"
             >
               <LogOut size={13} className="text-[#8898c0]" />
-              <span className="text-[#8898c0]">Logout</span>
+              <span className="text-[#8898c0] hidden sm:inline">Logout</span>
             </motion.button>
           </div>
         </div>
       </header>
 
-      <main className="max-w-7xl mx-auto px-8 py-8">
+      <main className="max-w-7xl mx-auto px-4 sm:px-6 lg:px-8 py-5 sm:py-8 pb-10">
 
         {/* ── Stats ── */}
-        <div className="grid grid-cols-2 lg:grid-cols-4 gap-4 mb-8">
+        <div className="grid grid-cols-2 lg:grid-cols-4 gap-3 sm:gap-4 mb-6 sm:mb-8">
           {stats.map((s, i) => (
             <motion.div
               key={s.label}
-              className="rounded-2xl p-5"
+              className="rounded-2xl p-4 sm:p-5"
               style={{ background: "rgba(255,255,255,0.05)", border: "1px solid rgba(255,255,255,0.10)" }}
               initial={{ opacity: 0, y: 20 }}
               animate={{ opacity: 1, y: 0 }}
               transition={{ delay: i * 0.07, duration: 0.5, ease }}
             >
-              <div className="flex items-center justify-between mb-4">
-                <s.icon size={16} style={{ color: s.color }} />
-                <span className="text-[10px] text-[#6878a8] uppercase tracking-wider">{s.label}</span>
+              <div className="flex items-center justify-between mb-3 sm:mb-4 gap-2">
+                <s.icon size={16} style={{ color: s.color }} className="shrink-0" />
+                <span className="text-[9px] sm:text-[10px] text-[#6878a8] uppercase tracking-wider text-right leading-tight">{s.label}</span>
               </div>
-              <p className="text-4xl font-bold text-white tabular-nums">
+              <p className="text-2xl sm:text-4xl font-bold text-white tabular-nums">
                 {loading ? <span className="text-[#3a3a6a]">—</span> : s.value}
               </p>
               {s.sub !== null && !loading && (
@@ -221,9 +220,9 @@ export default function AdminLeads() {
           animate={{ opacity: 1, y: 0 }}
           transition={{ delay: 0.3, duration: 0.5, ease }}
         >
-          <div className="px-6 py-4 border-b border-white/10 flex items-center justify-between">
-            <p className="text-[#f0c84a] text-[10px] tracking-[0.35em] uppercase">All Leads</p>
-            <p className="text-[#6878a8] text-xs">
+          <div className="px-4 sm:px-6 py-3 sm:py-4 border-b border-white/10 flex items-center justify-between gap-2">
+            <p className="text-[#f0c84a] text-[10px] tracking-[0.25em] sm:tracking-[0.35em] uppercase">All Leads</p>
+            <p className="text-[#6878a8] text-xs shrink-0">
               {loading ? "Loading…" : `${leads.length} ${leads.length === 1 ? "entry" : "entries"}`}
             </p>
           </div>
@@ -256,7 +255,68 @@ export default function AdminLeads() {
           )}
 
           {!error && (loading || leads.length > 0) && (
-            <div className="overflow-x-auto">
+            <>
+            {/* Mobile: card list */}
+            <div className="md:hidden divide-y divide-white/[0.06]">
+              {loading
+                ? Array.from({ length: 4 }).map((_, i) => (
+                    <div key={i} className="p-4 space-y-2">
+                      <div className="h-4 w-32 rounded-lg animate-pulse" style={{ background: "rgba(255,255,255,0.06)" }} />
+                      <div className="h-3 w-24 rounded-lg animate-pulse" style={{ background: "rgba(255,255,255,0.06)" }} />
+                    </div>
+                  ))
+                : leads.map((lead, i) => {
+                    const expStyle = EXPERIENCE_STYLE[lead.experience] ?? {
+                      bg: "rgba(255,255,255,0.08)", border: "rgba(255,255,255,0.2)", text: "#c0c8e0",
+                    };
+                    const submittedAt = new Date(lead.created_at);
+                    return (
+                      <motion.div
+                        key={lead.id}
+                        className="p-4 space-y-3"
+                        initial={{ opacity: 0, y: 8 }}
+                        animate={{ opacity: 1, y: 0 }}
+                        transition={{ delay: i * 0.03, duration: 0.25, ease }}
+                      >
+                        <div className="flex items-start justify-between gap-2">
+                          <p className="text-white text-sm font-semibold">{lead.name}</p>
+                          <span
+                            className="text-[10px] px-2 py-0.5 rounded-full font-medium shrink-0"
+                            style={{
+                              background: expStyle.bg,
+                              border: `1px solid ${expStyle.border}`,
+                              color: expStyle.text,
+                            }}
+                          >
+                            {lead.experience}
+                          </span>
+                        </div>
+                        <a href={`tel:${lead.phone}`} className="text-[#a0acd0] text-sm font-mono block">
+                          {lead.phone}
+                        </a>
+                        <div className="grid grid-cols-2 gap-2 text-xs">
+                          <div>
+                            <p className="text-[#4858a0] text-[10px] uppercase tracking-wider mb-0.5">Visit</p>
+                            <p className="text-[#c0c8e0]">{lead.visit_date}</p>
+                            <p className="text-[#8898c0] font-mono">{lead.visit_time}</p>
+                          </div>
+                          <div className="text-right">
+                            <p className="text-[#4858a0] text-[10px] uppercase tracking-wider mb-0.5">Submitted</p>
+                            <p className="text-[#7888a8]">
+                              {submittedAt.toLocaleDateString("en-IN", { day: "numeric", month: "short" })}
+                            </p>
+                            <p className="text-[#4858a0] text-[10px]">
+                              {submittedAt.toLocaleTimeString("en-IN", { hour: "2-digit", minute: "2-digit" })}
+                            </p>
+                          </div>
+                        </div>
+                      </motion.div>
+                    );
+                  })}
+            </div>
+
+            {/* Desktop: table */}
+            <div className="hidden md:block overflow-x-auto">
               <table className="w-full">
                 <thead>
                   <tr className="border-b border-white/[0.07]">
@@ -331,6 +391,7 @@ export default function AdminLeads() {
                 </tbody>
               </table>
             </div>
+            </>
           )}
         </motion.div>
 
