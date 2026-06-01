@@ -166,7 +166,7 @@ export function DiscoverPanel({ onNavigate }: { onNavigate?: (id: PanelId) => vo
         </div>
 
         {/* RERA badge */}
-        <div className="absolute inset-x-0 top-3 sm:inset-x-auto sm:right-6 sm:top-6 z-10 flex justify-center sm:justify-end px-3 sm:px-0 pointer-events-none">
+        <div className="absolute top-2 right-2 sm:top-6 sm:right-6 z-10 pointer-events-none">
           <ReraBadge elevated />
         </div>
 

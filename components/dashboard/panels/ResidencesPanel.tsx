@@ -268,18 +268,15 @@ export function ResidencesPanel({ onNavigate: _onNavigate }: { onNavigate?: (id:
           className="border-b border-white/15 shrink-0"
           style={{ background: "rgba(16,16,30,0.95)" }}
         >
-          <div className="flex flex-wrap items-center gap-x-2 gap-y-1 px-4 sm:px-6 py-3">
+          <div className="flex flex-wrap items-center gap-x-2 gap-y-2 px-4 sm:px-6 py-2.5 sm:py-3">
             <Home size={13} className="text-[#d4aa50] shrink-0" />
-            <span className="text-white text-xs sm:text-sm font-light min-w-0">
+            <span className="text-white text-xs sm:text-sm font-light min-w-0 flex-1 basis-[50%] sm:flex-none sm:basis-auto">
               {group} · {variant.sqft} sq.ft · {variant.facing}
             </span>
             <span className="text-[#8898c0] text-[10px] sm:text-xs shrink-0">Flat {variant.flatNos}</span>
-            <div className="hidden sm:block sm:ml-auto shrink-0">
+            <div className="ml-auto shrink-0">
               <ReraBadge />
             </div>
-          </div>
-          <div className="px-4 pb-3 sm:hidden flex justify-center">
-            <ReraBadge className="w-full max-w-[280px]" />
           </div>
         </div>
 
