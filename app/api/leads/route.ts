@@ -1,4 +1,5 @@
 import { NextResponse } from "next/server";
+import { sendLeadAlert } from "@/lib/lead-alert";
 import { supabaseAdmin } from "@/lib/supabase-admin";
 
 type LeadInsert = {
@@ -61,6 +62,8 @@ export async function POST(request: Request) {
   if (error) {
     return NextResponse.json({ error: error.message }, { status: 500 });
   }
+
+  void sendLeadAlert(lead);
 
   return NextResponse.json({ ok: true }, { status: 201 });
 }
