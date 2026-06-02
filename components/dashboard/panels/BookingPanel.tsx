@@ -1,7 +1,6 @@
 "use client";
 
 import { useState } from "react";
-import { supabase } from "@/lib/supabase";
 import { motion, AnimatePresence } from "framer-motion";
 import { CalendarDays, Check, Car, Users, ChevronLeft, ChevronRight } from "lucide-react";
 
@@ -37,16 +36,25 @@ export function BookingPanel() {
     if (!canConfirm || submitting) return;
     setSubmitting(true);
     setSubmitError(null);
-    const { error } = await supabase.from("leads").insert({
-      name: form.name,
-      phone: form.phone,
-      experience: experiences.find((e) => e.id === experience)?.label ?? experience,
-      visit_date: `${monthName} ${selectedDay}, ${year}`,
-      visit_time: selectedSlot,
-    });
-    setSubmitting(false);
-    if (error) { setSubmitError("Submission failed. Please try again."); return; }
-    setStep("done");
+    try {
+      const res = await fetch("/api/leads", {
+        method: "POST",
+        headers: { "Content-Type": "application/json" },
+        body: JSON.stringify({
+          name: form.name,
+          phone: form.phone,
+          experience: experiences.find((e) => e.id === experience)?.label ?? experience,
+          visit_date: `${monthName} ${selectedDay}, ${year}`,
+          visit_time: selectedSlot,
+        }),
+      });
+      if (!res.ok) throw new Error("submit failed");
+      setStep("done");
+    } catch {
+      setSubmitError("Submission failed. Please try again.");
+    } finally {
+      setSubmitting(false);
+    }
   };
 
   const { first, total } = getCalendarDays(year, month);
