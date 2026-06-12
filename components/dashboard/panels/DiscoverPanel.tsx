@@ -14,7 +14,7 @@ const BuildingScene = dynamic(
 );
 
 const stats = [
-  { value: "₹48L+", label: "Starting price" },
+  { value: "₹50L+", label: "Starting price" },
   { value: "2028", label: "Possession" },
   { value: "54", label: "Units for sale" },
   { value: "G+4", label: "Tower height" },
